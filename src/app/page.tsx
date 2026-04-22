@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import {
   Factory,
   ExternalLink,
@@ -15,6 +16,7 @@ import {
   LayoutDashboard,
   Box,
   Settings,
+  Sparkles,
 } from "lucide-react";
 
 interface App {
@@ -87,9 +89,10 @@ const CATEGORY_LABELS: Record<string, string> = {
 };
 
 const NAV_ITEMS = [
-  { icon: LayoutDashboard, label: "Dashboard", active: true },
-  { icon: Box, label: "Apps", active: false },
-  { icon: Settings, label: "Settings", active: false },
+  { icon: LayoutDashboard, label: "Dashboard", href: "/", active: true },
+  { icon: Box, label: "Apps", href: "/", active: false },
+  { icon: Sparkles, label: "Skills", href: "/skills", active: false },
+  { icon: Settings, label: "Settings", href: "/", active: false },
 ];
 
 export default function Dashboard() {
@@ -134,9 +137,10 @@ export default function Dashboard() {
 
         <nav className="flex-1 px-3 mt-2">
           {NAV_ITEMS.map((item) => (
-            <button
+            <Link
               key={item.label}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm mb-1 transition-colors ${
+              href={item.href}
+              className={`relative w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm mb-1 transition-colors ${
                 item.active
                   ? "bg-[#1E293B] text-white font-medium"
                   : "text-slate-400 hover:text-white hover:bg-[#1E293B]/50"
@@ -147,7 +151,7 @@ export default function Dashboard() {
               )}
               <item.icon className="w-[18px] h-[18px]" strokeWidth={1.5} />
               {item.label}
-            </button>
+            </Link>
           ))}
         </nav>
 
